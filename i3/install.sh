@@ -30,9 +30,10 @@ make
 sudo make install
 
 
-# install i3status, rofi
-sudo apt install i3status rofi
+# install i3status, rofi, pasystray, nitrogen
+sudo apt install i3status rofi pasystray nitrogen
 
 # copy config file to home dir
 cp $APP_DIR/config ~/.config/i3/config
+cp $APP_DIR/status_config ~/.config/i3status/config
 i3-msg restart

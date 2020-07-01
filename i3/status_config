@@ -1,0 +1,79 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 5
+}
+
+order += "battery 0"
+order += "battery 1"
+order += "cpu_usage"
+order += "volume master"
+order += "tztime local"
+
+battery 0 {
+#   format = "%status %percentage %remaining %emptytime"
+    format = "BAT0 %status %percentage %remaining "
+    format_down = " no battery "
+    last_full_capacity = true
+    integer_battery_capacity = true
+    hide_seconds = true
+    status_chr = ""
+    status_bat = "USING "
+    status_full = " "
+    status_unk = ""
+    low_threshold = 10
+    threshold_type = percentage
+    path = "/sys/class/power_supply/BAT0/uevent"
+}
+
+ 
+battery 1 {
+#   format = "%status %percentage %remaining %emptytime"
+    format = "BAT1 %status %percentage %remaining "
+    format_down = " no battery "
+    last_full_capacity = true
+    integer_battery_capacity = true
+    hide_seconds = true
+    status_chr = ""
+    status_bat = "USING "
+    status_full = " "
+    status_unk = ""
+    low_threshold = 10
+    threshold_type = percentage
+    path = "/sys/class/power_supply/BAT1/uevent"
+}
+
+tztime local {
+        format = ": %time"
+        format_time = "%Y-%m-%d %H:%M:%S"
+}
+
+cpu_temperature 0 {
+        format = "%degrees °C"
+	max_threshold = 70
+}
+
+cpu_usage {
+	format = "CPU : %usage"
+}
+
+load {
+        format = "%1min"
+}
+
+volume master {
+       format = " %volume"
+       format_muted = " muted (%volume)"
+       device = "default"
+       mixer = "Master"
+       mixer_idx = 0
+}
+
+
