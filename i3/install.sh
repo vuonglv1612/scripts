@@ -31,7 +31,7 @@ sudo make install
 
 
 # install i3status, rofi, pasystray, nitrogen, fontawesome
-sudo apt install i3status rofi pasystray nitrogen fonts-font-awesome
+sudo apt install i3status rofi pasystray nitrogen fonts-font-awesome -y
 
 # copy config file to home dir
 cp $APP_DIR/config ~/.config/i3/config
