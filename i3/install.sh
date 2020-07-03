@@ -36,9 +36,31 @@ sudo apt install i3status \
                  pasystray \
                  nitrogen \
                  fonts-font-awesome \
-                 flameshot -y
+                 flameshot \
+                 imagemagick \
+                 util-linux -y
+
+# dependencies for i3lock-color
+cd /tmp/install
+sudo apt install pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+git clone https://github.com/Raymo111/i3lock-color.git
+cd i3lock-color
+chmod +x build.sh
+./build.sh
+chmod +x install-i3lock-color.sh
+./install-i3lock-color.sh
+
+cd /tmp/install
+git clone https://github.com/meskarune/i3lock-fancy.git
+cd i3lock-fancy
+sudo make install
 
 # copy config file to home dir
+mkdir -p ~/scripts
+mkdir -p ~/.config/i3status
+cp $APP_DIR/i3exit.sh ~/scripts/i3exit.sh
+sudo rm -rf /usr/bin/i3exit
+sudo ln -s ~/scripts/i3exit.sh /usr/bin/i3exit
 cp $APP_DIR/config ~/.config/i3/config
 cp $APP_DIR/status_config ~/.config/i3status/config
 i3-msg restart
