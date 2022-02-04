@@ -2,7 +2,7 @@
 BASE_DIR=$PWD
 
 sudo apt update
-sudo apt install vim git curl unzip telegram-desktop flameshot firefox thunderbird openvpn tmux xterm fzf -y
+sudo apt install vim git curl unzip flameshot firefox thunderbird openvpn tmux xterm fzf -y
 
 # Install ibus-bamboo
 sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
@@ -10,6 +10,20 @@ sudo apt-get update
 sudo apt-get install ibus-bamboo -y
 ibus restart
 env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+
+# Install telegram
+curl -L https://telegram.org/dl/desktop/linux -o /tmp/tsetup.tar.xz
+sudo mkdir -p /opt/telegram && cd /opt/telegram
+sudo tar -xvf /tmp/tsetup.tar.xz
+sudo rm -f /tmp/tsetup.tar.xz
+sudo ln -s /opt/telegram/Telegram /usr/bin/telegram
+
+# Install flux
+sudo add-apt-repository ppa:nathan-renniewaldock/flux -y
+sudo sed -i 's/focal/bionic/g' /etc/apt/sources.list.d/nathan-renniewaldock-ubuntu-flux-focal.list
+sudo apt-get update
+sudo apt-get install fluxgui -y
+
 
 # Install dash to dock
 sudo apt install gnome-tweaks gnome-shell-extensions gettext gnome-tweak-tool -y
@@ -50,7 +64,7 @@ rm /tmp/vscode_latest.deb
 wget https://dl.pstmn.io/download/latest/linux64 -O /tmp/postman.tar.gz
 sudo tar -xzf /tmp/postman.tar.gz -C /opt
 rm /tmp/postman.tar.gz
-sudo rm /usr/bin/postman
+sudo rm -f /usr/bin/postman
 sudo ln -s /opt/Postman/Postman /usr/bin/postman
  
 mkdir -p ~/.local/share/applications
