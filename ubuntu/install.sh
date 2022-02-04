@@ -18,6 +18,18 @@ sudo tar -xvf /tmp/tsetup.tar.xz
 sudo rm -f /tmp/tsetup.tar.xz
 sudo ln -s /opt/telegram/Telegram /usr/bin/telegram
 
+# create telegram desktop file
+sudo cat <<EOF > /usr/share/applications/telegram.desktop
+[Desktop Entry]
+Name=Telegram
+Comment=Telegram
+Exec=/usr/bin/telegram
+Icon=/opt/telegram/Telegram/res/icons/Telegram.svg
+Terminal=false
+Type=Application
+Categories=Network;
+EOF
+
 # Install flux
 sudo add-apt-repository ppa:nathan-renniewaldock/flux -y
 sudo sed -i 's/focal/bionic/g' /etc/apt/sources.list.d/nathan-renniewaldock-ubuntu-flux-focal.list
@@ -87,3 +99,15 @@ echo 'export PATH="~/.local/bin:$PATH"' >> ~/.bashrc
 echo "source /usr/share/doc/fzf/examples/key-bindings.bash" >> ~/.bashrc
 echo "source /usr/share/doc/fzf/examples/completion.bash" >> ~/.bashrc
 . ~/.bashrc
+
+
+# install spotify from snapstore
+sudo snap install spotify authy todoist
+
+# install vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# install vim plugins
+vim +PlugInstall +qall
+
