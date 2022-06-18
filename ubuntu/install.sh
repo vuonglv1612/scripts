@@ -2,7 +2,7 @@
 BASE_DIR=$PWD
 
 sudo apt update
-sudo apt install vim git curl unzip flameshot firefox thunderbird openvpn tmux xterm fzf -y
+sudo apt install vim git curl unzip firefox thunderbird openvpn tmux  fzf -y
 
 # Install ibus-bamboo
 sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
@@ -13,22 +13,25 @@ env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['Bamb
 
 # Install telegram
 curl -L https://telegram.org/dl/desktop/linux -o /tmp/tsetup.tar.xz
+sudo rm -rf /opt/telegram
 sudo mkdir -p /opt/telegram && cd /opt/telegram
 sudo tar -xvf /tmp/tsetup.tar.xz
 sudo rm -f /tmp/tsetup.tar.xz
-sudo ln -s /opt/telegram/Telegram /usr/bin/telegram
+sudo rm -rf /usr/bin/telegram
+sudo ln -s /opt/telegram/Telegram/Telegram /usr/bin/telegram
 
 # create telegram desktop file
-sudo cat <<EOF > /usr/share/applications/telegram.desktop
+sudo cat <<EOF > /tmp/telegram.desktop
 [Desktop Entry]
 Name=Telegram
 Comment=Telegram
 Exec=/usr/bin/telegram
-Icon=/opt/telegram/Telegram/res/icons/Telegram.svg
 Terminal=false
+Icon=/opt/telegram/Telegram/Telegram/res/icons/Telegram.svg
 Type=Application
 Categories=Network;
 EOF
+sudo mv /tmp/telegram.desktop /usr/share/applications/telegram.desktop
 
 # Install flux
 sudo add-apt-repository ppa:nathan-renniewaldock/flux -y
@@ -40,22 +43,12 @@ sudo apt-get install fluxgui -y
 # Install dash to dock
 sudo apt install gnome-tweaks gnome-shell-extensions gettext gnome-tweak-tool -y
 
-rm -rf /tmp/dash-to-dock
-git clone https://github.com/micheleg/dash-to-dock.git /tmp/dash-to-dock
-cd /tmp/dash-to-dock
-make
-make install
-cd ~ && rm -rf /tmp/dash-to-dock
-## restart gnome shell
-killall -SIGQUIT gnome-shell
-
 # Install developer packages
 sudo apt install golang -y
 
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
-sudo apt install python3-pip python3.6 libpq-dev python-dev python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libffi-dev -y
-pip install pipenv oathtool pylint darker isort
+sudo apt install python3-pip python3.6 python3.8 python3.6-dev python3.8-dev libpq-dev python-dev python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libffi-dev -y
 
 ## NODEJS
 sudo apt -y install dirmngr apt-transport-https lsb-release ca-certificates
@@ -70,12 +63,12 @@ fc-cache -f -v
 ## VSCODE
 curl -o /tmp/vscode_latest.deb -JL 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
 sudo apt install /tmp/vscode_latest.deb -y
-rm /tmp/vscode_latest.deb
+rm  -rf /tmp/vscode_latest.deb
 
 ## POSTMAN
 wget https://dl.pstmn.io/download/latest/linux64 -O /tmp/postman.tar.gz
 sudo tar -xzf /tmp/postman.tar.gz -C /opt
-rm /tmp/postman.tar.gz
+rm -rf  /tmp/postman.tar.gz
 sudo rm -f /usr/bin/postman
 sudo ln -s /opt/Postman/Postman /usr/bin/postman
  
