@@ -2,7 +2,7 @@
 BASE_DIR=$PWD
 
 sudo apt update
-sudo apt install vim git curl unzip firefox thunderbird openvpn tmux  fzf -y
+sudo apt install git curl unzip openvpn tmux  fzf -y
 
 # Install ibus-bamboo
 sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
@@ -20,19 +20,6 @@ sudo rm -f /tmp/tsetup.tar.xz
 sudo rm -rf /usr/bin/telegram
 sudo ln -s /opt/telegram/Telegram/Telegram /usr/bin/telegram
 
-# create telegram desktop file
-sudo cat <<EOF > /tmp/telegram.desktop
-[Desktop Entry]
-Name=Telegram
-Comment=Telegram
-Exec=/usr/bin/telegram
-Terminal=false
-Icon=/opt/telegram/Telegram/Telegram/res/icons/Telegram.svg
-Type=Application
-Categories=Network;
-EOF
-sudo mv /tmp/telegram.desktop /usr/share/applications/telegram.desktop
-
 # Install flux
 sudo add-apt-repository ppa:nathan-renniewaldock/flux -y
 sudo sed -i 's/focal/bionic/g' /etc/apt/sources.list.d/nathan-renniewaldock-ubuntu-flux-focal.list
@@ -43,17 +30,10 @@ sudo apt-get install fluxgui -y
 # Install dash to dock
 sudo apt install gnome-tweaks gnome-shell-extensions gettext gnome-tweak-tool -y
 
-# Install developer packages
-sudo apt install golang -y
 
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
 sudo apt install python3-pip python3.6 python3.8 python3.6-dev python3.8-dev libpq-dev python-dev python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libffi-dev -y
-
-## NODEJS
-sudo apt -y install dirmngr apt-transport-https lsb-release ca-certificates
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt -y install nodejs
 
 ## FONTS
 mkdir -p ~/.local/share/fonts
@@ -96,11 +76,3 @@ echo "source /usr/share/doc/fzf/examples/completion.bash" >> ~/.bashrc
 
 # install spotify from snapstore
 sudo snap install spotify authy todoist
-
-# install vim-plug
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-# install vim plugins
-vim +PlugInstall +qall
-
